@@ -47,33 +47,21 @@ const pdfItemElement = ref()
 const qrcodeCanvas = ref()
 const barcodeCanvas = ref()
 
+const multiple = 4
 const style = ref({
-    spaceWidth: 34,
-    spaceHeight: 48.5,
-
-    layoutWidth: 20,
-    layoutHeight: 20,
-    layoutPaddingLr: 3,
-    layoutPaddingUb: 3,
-
-    qrcodeMarignButtom: 1,
-    qrcodeWidth: 10
+    qrcodeWidth: 12 * multiple
 })
-
-const style_qrocde_width = ref(10)
 
 onMounted(() => {
     QRCode.toCanvas(qrcodeCanvas.value, props.content.qrcode, {
         width: mmToPx(style.value.qrcodeWidth),
         margin: 0,
-        scale: 1
     })
     JsBarcode(barcodeCanvas.value, props.content.barcode, {
-        format: 'CODE128',
-        width: mmToPx(0.10),
-        height: mmToPx(3),
+        width: mmToPx(0.18 * multiple),
+        height: mmToPx(5 * multiple),
         margin: 0,
-        displayValue: false
+        displayValue: false,
     })
 })
 
@@ -87,51 +75,53 @@ function mmToPx(mm: number): number {
 }
 </script>
 
-<style>
-:root {
-    --space-width: 34mm;
-    --space-height: 48.5mm;
+<style lang="scss" scoped>
+$multiple: 4;
+$space-width: 34mm * $multiple;
+$space-height: 48.5mm * $multiple;
 
-    --layout-width: 20mm;
-    --layout-height: 20mm;
-    --layout-padding-lr: 3mm;
-    --layout-padding-ub: 3mm;
+$layout-width: 20mm * $multiple;
+$layout-height: 20mm * $multiple;
+$layout-padding-lr: 1mm * $multiple;
+$layout-padding-ub: 1mm * $multiple;
 
-    --qrcode-width: v-bind(style_qrocde_width+ 'mm');
-    --qrcode-marign-buttom: 1mm;
+$qrcode-width: 12mm * $multiple;
+$qrcode-marign-buttom: 1mm * $multiple;
 
-    --content-width: calc(var(--layout-width) - calc(2 * var(--layout-padding-lr)));
-    --content-height: calc(var(--layout-height) - calc(2 * var(--layout-padding-ub)));
-}
-</style>
-<style scoped>
+$content-width: $layout-width - $layout-padding-lr*2;
+$content-height: $layout-height - $layout-padding-ub*2;
+
 .layout {
-    width: var(--content-width);
-    height: var(--content-height);
-    padding: var(--layout-padding-ub) var(--layout-padding-lr);
-    margin-right: calc(var(--space-width) - var(--layout-width));
-    margin-bottom: calc(var(--space-height) - var(--layout-height));
+    width: $content-width;
+    height: $content-height;
+    padding: $layout-padding-ub $layout-padding-lr;
+
+    margin-right: $space-width - $layout-width;
+    margin-bottom: $space-height - $layout-height;
 }
 
 .text-qrcode {
     display: flex;
-    height: var(--qrcode-width);
-    margin-bottom: var(--qrcode-marign-buttom);
+    height: $qrcode-width;
+    margin-bottom: $qrcode-marign-buttom;
 }
 
 .text {
-    width: calc(var(--content-width));
+    width: $content-width;
     display: block;
 }
 
 .text div {
+    display: flex;
     height: 50%;
-    font-size: 2mm;
-    text-align: center;
+    font-size: 4mm * $multiple;
+    justify-content: center;
+    align-items: center;
+
 }
 
 .qrcode {
-    width: var(--qrcode-width);
+    width: $qrcode-width;
     height: 100%;
     display: grid;
     place-items: center;
@@ -139,7 +129,7 @@ function mmToPx(mm: number): number {
 
 .barcode {
     align-items: center;
-    height: calc(var(--content-height) - v-bind(style_qrocde_width+ 'mm') - var(--qrcode-marign-buttom));
+    height: $content-height - $qrcode-width - $qrcode-marign-buttom;
     justify-content: center;
     display: flex;
 }
@@ -148,4 +138,3 @@ function mmToPx(mm: number): number {
     position: absolute;
 }
 </style>
-
