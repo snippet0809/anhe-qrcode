@@ -11,10 +11,7 @@
     "type-check": "vue-tsc --build --force"
   },
   "dependencies": {
-    "canvg": "^4.0.2",
-    "downloadjs": "^1.4.7",
     "element-plus": "~2.7.2",
-    "html-to-image": "^1.11.11",
     "html2canvas": "^1.4.1",
     "jsbarcode": "~3.11.6",
     "jspdf": "^2.5.1",
