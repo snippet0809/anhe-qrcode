@@ -47,21 +47,22 @@ const pdfItemElement = ref()
 const qrcodeCanvas = ref()
 const barcodeCanvas = ref()
 
-const multiple = 4
+const multiple = 10
 const style = ref({
-    qrcodeWidth: 12 * multiple
+    qrcodeWidth: 10 * multiple
 })
 
 onMounted(() => {
+    console.log(mmToPx(1))
     QRCode.toCanvas(qrcodeCanvas.value, props.content.qrcode, {
         width: mmToPx(style.value.qrcodeWidth),
-        margin: 0,
+        margin: 0
     })
     JsBarcode(barcodeCanvas.value, props.content.barcode, {
-        width: mmToPx(0.18 * multiple),
+        width: mmToPx(0.16 * multiple),
         height: mmToPx(5 * multiple),
         margin: 0,
-        displayValue: false,
+        displayValue: false
     })
 })
 
@@ -76,17 +77,17 @@ function mmToPx(mm: number): number {
 </script>
 
 <style lang="scss" scoped>
-$multiple: 4;
+$multiple: 10;
 $space-width: 34mm * $multiple;
 $space-height: 48.5mm * $multiple;
 
 $layout-width: 20mm * $multiple;
 $layout-height: 20mm * $multiple;
-$layout-padding-lr: 1mm * $multiple;
-$layout-padding-ub: 1mm * $multiple;
+$layout-padding-lr: 2mm * $multiple;
+$layout-padding-ub: 2mm * $multiple;
 
-$qrcode-width: 12mm * $multiple;
-$qrcode-marign-buttom: 1mm * $multiple;
+$qrcode-width: 10mm * $multiple;
+$qrcode-margin-bottom: 1mm * $multiple;
 
 $content-width: $layout-width - $layout-padding-lr*2;
 $content-height: $layout-height - $layout-padding-ub*2;
@@ -103,7 +104,7 @@ $content-height: $layout-height - $layout-padding-ub*2;
 .text-qrcode {
     display: flex;
     height: $qrcode-width;
-    margin-bottom: $qrcode-marign-buttom;
+    margin-bottom: $qrcode-margin-bottom;
 }
 
 .text {
@@ -114,10 +115,9 @@ $content-height: $layout-height - $layout-padding-ub*2;
 .text div {
     display: flex;
     height: 50%;
-    font-size: 4mm * $multiple;
+    font-size: 3mm * $multiple;
     justify-content: center;
     align-items: center;
-
 }
 
 .qrcode {
@@ -129,12 +129,16 @@ $content-height: $layout-height - $layout-padding-ub*2;
 
 .barcode {
     align-items: center;
-    height: $content-height - $qrcode-width - $qrcode-marign-buttom;
+    height: $content-height - $qrcode-width - $qrcode-margin-bottom;
     justify-content: center;
     display: flex;
 }
 
 .barcode canvas {
     position: absolute;
+}
+
+.text span {
+    margin-right: 5mm;
 }
 </style>
