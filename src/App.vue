@@ -87,7 +87,7 @@ async function generateImage() {
     let index = parseInt(formData.value.barcode_suffix) + i
     const indexStr = String(index).padStart(9, '0')
     const barcode = FormData.barcode_prefix + indexStr
-    const qrcode = FormData.qrcode_protocol + formData.value.qrcode_prefix + indexStr
+    const qrcode = FormData.qrcode_protocol + formData.value.qrcode_prefix + barcode
     dataList.value.push(new Content('安和', qrcode, barcode))
   }
   await nextTick()
