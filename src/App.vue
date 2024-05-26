@@ -16,9 +16,9 @@
         <el-form-item label="每行个数">
             <el-input-number v-model="rowLen"></el-input-number>
         </el-form-item>
-        <el-text type="warning">1：当生成较多数量的条码时，所需要的时间会比较长，请耐心等待</el-text>
+        <el-text type="warning">1、当生成较多数量的条码时，所需要的时间会比较长，请耐心等待</el-text>
         <br />
-        <el-text type="warning">2、等待过程中，若浏览器提示无响应，请选择【等待】，千万不要点【离开网页】</el-text>
+        <el-text type="warning">2、等待过程中，若浏览器提示【页面无响应】，请选择【等待】，千万不要点【退出网页】</el-text>
         <el-form-item>
             <el-button type="primary" @click="generateImage()" :loading=status_render>预览内容</el-button>
         </el-form-item>
