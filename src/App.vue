@@ -94,6 +94,7 @@ async function generateImage() {
 
 async function saveImage() {
     status_download.value = true
+    await new Promise(resolve => setTimeout(resolve, 100))
     html2canvas(result.value, { scale: scale.value }).then((canvas) => {
         const quotient = Math.floor(formData.value.count / rowLen.value)
         const remainder = formData.value.count % rowLen.value
