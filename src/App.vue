@@ -49,7 +49,7 @@ class FormData {
   static qrcode_protocol = 'http://'
   static barcode_prefix = '007'
 
-  qrcode_prefix: string = ''
+  qrcode_prefix: string = 'trace.lyanhe.com/t/home?code='
   barcode_suffix: string = ''
   count: number = 100
 }
@@ -57,6 +57,7 @@ class FormData {
 const formData = ref(new FormData())
 const rowLen = ref(20)
 const scale = ref(0.2)
+const itemWidth = 33.9, itemHeight = 48.4
 const ruleFormRef = ref<FormInstance>()
 const rules = reactive<FormRules<FormData>>({
   qrcode_prefix: [{required: true, message: '请输入二维码前缀', trigger: 'blur'}],
@@ -101,7 +102,7 @@ async function saveImage() {
     const quotient = Math.floor(formData.value.count / rowLen.value)
     const remainder = formData.value.count % rowLen.value
     const colLen = remainder == 0 ? quotient : quotient + 1
-    const width = 34 * rowLen.value + 20, height = 48.5 * colLen + 20
+    const width = itemWidth * rowLen.value + 20, height = itemHeight * colLen + 20
     let orientation: 'p' | 'l' = 'p', format = [width, height]
     if (rowLen.value > colLen) {
       orientation = 'l'
@@ -114,8 +115,8 @@ async function saveImage() {
       // a.href = imgData;
       // a.download = `安和-${getDateTimeString()}.png`;
       // a.click();
-      pdf.addImage(imgData, 'png', 0, 0, 34 * rowLen.value + (20 * scale.value),
-          48.5 * colLen + (20 * scale.value))
+      pdf.addImage(imgData, 'png', 0, 0, itemWidth * rowLen.value + (20 * scale.value),
+          itemHeight * colLen + (20 * scale.value))
       pdf.save(`安和-${getDateTimeString()}.pdf`)
     } catch {
       ElMessage.error('生成PDF失败')
@@ -146,7 +147,7 @@ function getDateTimeString(): string {
 </script>
 <style scoped>
 .result {
-  width: calc(34mm * 10 * v-bind(rowLen));
+  width: calc(33.9mm * 10 * v-bind(rowLen));
   padding: 10mm 10mm;
 }
 
