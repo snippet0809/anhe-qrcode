@@ -49,7 +49,7 @@ const barcodeCanvas = ref()
 
 const multiple = 10
 const style = ref({
-  qrcodeWidth: 10 * multiple
+  qrcodeWidth: 12 * multiple
 })
 
 onMounted(() => {
@@ -61,7 +61,7 @@ onMounted(() => {
   })
   JsBarcode(barcodeCanvas.value, props.content.barcode, {
     width: mmToPx(0.16 * multiple),
-    height: mmToPx(5 * multiple),
+    height: mmToPx(3.5 * multiple),
     margin: 0,
     displayValue: false
   })
@@ -87,8 +87,8 @@ $layout-height: 20mm * $multiple;
 $layout-padding-lr: 2mm * $multiple;
 $layout-padding-ub: 2mm * $multiple;
 
-$qrcode-width: 10mm * $multiple;
-$qrcode-margin-bottom: 1mm * $multiple;
+$qrcode-width: 12mm * $multiple;
+$qrcode-margin-bottom: 0.5mm * $multiple;
 
 $content-width: $layout-width - $layout-padding-lr*2;
 $content-height: $layout-height - $layout-padding-ub*2;

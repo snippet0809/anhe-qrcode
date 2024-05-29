@@ -49,7 +49,7 @@ class FormData {
   static qrcode_protocol = 'http://'
   static barcode_prefix = '007'
 
-  qrcode_prefix: string = 'trace.lyanhe.com/t/home?code='
+  qrcode_prefix: string = 'trace.lyanhe.com/t/'
   barcode_suffix: string = ''
   count: number = 100
 }
