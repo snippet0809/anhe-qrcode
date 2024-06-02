@@ -57,7 +57,7 @@ class FormData {
 const formData = ref(new FormData())
 const rowLen = ref(20)
 const scale = ref(0.5)
-const itemWidth = 33.9, itemHeight = 48.4
+const itemWidth = 34, itemHeight = 48.5
 const ruleFormRef = ref<FormInstance>()
 const rules = reactive<FormRules<FormData>>({
   qrcode_prefix: [{required: true, message: '请输入二维码前缀', trigger: 'blur'}],
@@ -147,7 +147,7 @@ function getDateTimeString(): string {
 </script>
 <style scoped>
 .result {
-  width: calc(33.9mm * 10 * v-bind(rowLen));
+  width: calc(34mm * 10 * v-bind(rowLen));
   padding: 10mm 10mm;
 }
 
