@@ -79,8 +79,8 @@ function mmToPx(mm: number): number {
 
 <style lang="scss" scoped>
 $multiple: 10;
-$space-width: 33.95mm * $multiple;
-$space-height: 48.45mm * $multiple;
+$space-width: 33.9mm * $multiple;
+$space-height: 48.4mm * $multiple;
 
 $layout-width: 20mm * $multiple;
 $layout-height: 20mm * $multiple;
