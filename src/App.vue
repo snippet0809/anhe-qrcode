@@ -56,7 +56,7 @@ class FormData {
 
 const formData = ref(new FormData())
 const rowLen = ref(20)
-const scale = ref(0.2)
+const scale = ref(0.6)
 const itemWidth = 33.9, itemHeight = 48.4
 const ruleFormRef = ref<FormInstance>()
 const rules = reactive<FormRules<FormData>>({
