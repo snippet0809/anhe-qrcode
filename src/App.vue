@@ -27,7 +27,7 @@
       </el-button>
     </el-form-item>
   </el-form>
-  <el-text type="success">v1.0.0</el-text>
+  <el-text type="success">v1.0.1</el-text>
 
   <!-- 遍历生成 -->
   <div class="result" ref="result">
@@ -58,7 +58,7 @@ class FormData {
 const formData = ref(new FormData())
 const rowLen = ref(20)
 const scale = ref(0.5)
-const itemWidth = 33.9, itemHeight = 48.4
+const itemWidth = 33.8, itemHeight = 48.3
 const ruleFormRef = ref<FormInstance>()
 const rules = reactive<FormRules<FormData>>({
   qrcode_prefix: [{required: true, message: '请输入二维码前缀', trigger: 'blur'}],
@@ -148,7 +148,7 @@ function getDateTimeString(): string {
 </script>
 <style scoped>
 .result {
-  width: calc(33.9mm * 10 * v-bind(rowLen));
+  width: calc(33.8mm * 10 * v-bind(rowLen));
   padding: 10mm 10mm;
 }
 
