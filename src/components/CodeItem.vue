@@ -40,31 +40,64 @@ import JsBarcode from 'jsbarcode'
 
 const props = defineProps<{
   content: Content
+  itemStyle: {
+    itemWidth: number,
+    itemHeight: number,
+    scale: number,
+    multiple: number,
+    barcodeWidth: number,
+    barcodeHeight: number
+  }
 }>()
-
 
 const pdfItemElement = ref()
 const qrcodeCanvas = ref()
 const barcodeCanvas = ref()
 
-const multiple = 10
-const style = ref({
-  qrcodeWidth: 13 * multiple
-})
+// 像素翻10倍
+const space_width = props.itemStyle.itemWidth * props.itemStyle.multiple
+const space_height = props.itemStyle.itemHeight * props.itemStyle.multiple
+
+const layout_width = 20 * props.itemStyle.multiple
+const layout_height = 20 * props.itemStyle.multiple
+const layout_padding = 1.3 * props.itemStyle.multiple
+
+const qrcode_width = 13 * props.itemStyle.multiple
+const qrcode_margin_bottom = 0.3 * props.itemStyle.multiple
+
+const content_width = layout_width - layout_padding * 2
+const content_height = layout_height - layout_padding * 2
+
+const text_font_size = 3.8 * props.itemStyle.multiple
 
 onMounted(() => {
-  console.log(mmToPx(1))
+  console.log("1mm对应的px值", mmToPx(1))
   QRCode.toCanvas(qrcodeCanvas.value, props.content.qrcode, {
-    width: mmToPx(style.value.qrcodeWidth),
+    width: mmToPx(qrcode_width),
     margin: 0,
     errorCorrectionLevel: 'L'
   })
   JsBarcode(barcodeCanvas.value, props.content.barcode, {
-    width: mmToPx(0.17 * multiple),
-    height: mmToPx(3.5 * multiple),
+    width: mmToPx(props.itemStyle.barcodeWidth * props.itemStyle.multiple),
+    height: mmToPx(props.itemStyle.barcodeHeight * props.itemStyle.multiple),
     margin: 0,
     displayValue: false
   })
+
+  document.documentElement.style.setProperty("--space-width", `${space_width}mm`)
+  document.documentElement.style.setProperty("--space-height", `${space_height}mm`)
+
+  document.documentElement.style.setProperty("--layout-width", `${layout_width}mm`)
+  document.documentElement.style.setProperty("--layout-height", `${layout_height}mm`)
+  document.documentElement.style.setProperty("--layout-padding", `${layout_padding}mm`)
+
+  document.documentElement.style.setProperty("--qrcode-width", `${qrcode_width}mm`)
+  document.documentElement.style.setProperty("--qrcode-margin-bottom", `${qrcode_margin_bottom}mm`)
+
+  document.documentElement.style.setProperty("--content-width", `${content_width}mm`)
+  document.documentElement.style.setProperty("--content-height", `${content_height}mm`)
+
+  document.documentElement.style.setProperty("--text-font-size", `${text_font_size}mm`)
 })
 
 function mmToPx(mm: number): number {
@@ -77,53 +110,56 @@ function mmToPx(mm: number): number {
 }
 </script>
 
-<style lang="scss" scoped>
-$multiple: 10;
-$space-width: 33.8mm * $multiple;
-$space-height: 48.3mm * $multiple;
+<style scoped>
+:root {
+  --space-width: ;
+  --space-height: ;
 
-$layout-width: 20mm * $multiple;
-$layout-height: 20mm * $multiple;
-$layout-padding-lr: 1.3mm * $multiple;
-$layout-padding-ub: 1.3mm * $multiple;
+  --layout-width: ;
+  --layout-height: ;
+  --layout-padding: ;
 
-$qrcode-width: 13mm * $multiple;
-$qrcode-margin-bottom: 0.3mm * $multiple;
+  --qrcode-width: ;
+  --qrcode-margin-bottom: ;
 
-$content-width: $layout-width - $layout-padding-lr*2;
-$content-height: $layout-height - $layout-padding-ub*2;
+  --content-width: ;
+  --content-height: ;
 
+  --text-font-size: ;
+}
+
+/* 不要用layout-width，css的尺寸都是真实尺寸，不包括padding和margin */
 .layout {
-  width: $content-width;
-  height: $content-height;
-  padding: $layout-padding-ub $layout-padding-lr;
+  width: var(--content-width);
+  height: var(--content-height);
+  padding: var(--layout-padding);
 
-  margin-right: $space-width - $layout-width;
-  margin-bottom: $space-height - $layout-height;
+  margin-right: calc(var(--space-width) - var(--layout-width));
+  margin-bottom: calc(var(--space-height) - var(--layout-height));
 }
 
 .text-qrcode {
   display: flex;
-  height: $qrcode-width;
-  margin-bottom: $qrcode-margin-bottom;
+  height: var(--qrcode-width);
+  margin-bottom: var(--qrcode-margin-bottom);
 }
 
 .text {
-  width: $content-width;
+  width: var(--content-width);
   display: block;
 }
 
 .text div {
   display: flex;
   height: 50%;
+  font-size: var(--text-font-size);
   font-weight: bold;
-  font-size: 3.8mm * $multiple;
   justify-content: center;
   align-items: center;
 }
 
 .qrcode {
-  width: $qrcode-width;
+  width: var(--qrcode-width);
   height: 100%;
   display: grid;
   place-items: center;
@@ -131,7 +167,7 @@ $content-height: $layout-height - $layout-padding-ub*2;
 
 .barcode {
   align-items: center;
-  height: $content-height - $qrcode-width - $qrcode-margin-bottom;
+  height: calc(var(--content-height) - var(--qrcode-width) - var(--qrcode-margin-bottom));
   justify-content: center;
   display: flex;
 }
@@ -144,3 +180,4 @@ $content-height: $layout-height - $layout-padding-ub*2;
   margin-right: 5mm;
 }
 </style>
+
