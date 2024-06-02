@@ -117,7 +117,7 @@ $content-height: $layout-height - $layout-padding-ub*2;
   display: flex;
   height: 50%;
   font-weight: bold;
-  font-size: 4.2mm * $multiple;
+  font-size: 3.8mm * $multiple;
   justify-content: center;
   align-items: center;
 }
